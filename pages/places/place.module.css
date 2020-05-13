@@ -1,0 +1,27 @@
+.place__name {
+    margin: 0;
+    padding: 0;
+    color: cornflowerblue;
+}
+
+.place__details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.place__days {
+    border-left: 1px solid #666;
+    padding-left: 30px;
+    margin-left: 30px;
+    width: 300px;
+    justify-content: space-between;
+}
+
+.place__day {
+    display: flex;
+    justify-content: space-between;
+}
+
+.day {
+    display: flex;
+}

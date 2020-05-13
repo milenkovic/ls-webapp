@@ -1,0 +1,26 @@
+.search {
+    width: 100%;
+    line-height: 30px;
+    margin-bottom: 20px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+}
+
+.results {
+    display: flex;
+    flex-direction: column;
+}
+
+.place {
+    display: block;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+.place:hover{
+    text-decoration: none;
+    background-color: cornflowerblue;
+    color: white;
+    transition: all 0.2s ease-in;
+}
