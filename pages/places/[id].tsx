@@ -19,12 +19,12 @@ export default function Page({errorCode, data}) {
               <p>{data.address}</p>
             </div>
             <div className={styles.place__days}>
-              {data.oppeningHours.map((item) => (
+              {data.openingHours.map((item) => (
                 <div className={styles.place__day}>
-                  <div>{item.day} :</div>{" "}
+                  <div>{item.start} {item.end ? '- ' + item.end : ''} :</div>{" "}
                   <div className={styles.place__hours}>
-                    {item.hours
-                      ? item.hours.map((hour) => <div>{hour}</div>)
+                    {item.hours.length
+                      ? item.hours.split(',').map((hour) => <div>{hour}</div>)
                       : "CLOSED"}
                   </div>
                 </div>

@@ -13,7 +13,7 @@ $ npm start
 ```
 
 - Tests?
-- Debouce search?
+- Debounce search?
 - Docker?
 - Use Custom server?
     https://nextjs.org/docs/advanced-features/custom-server
