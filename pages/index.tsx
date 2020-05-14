@@ -5,26 +5,22 @@ import { GetStaticProps } from 'next'
 import { Place } from '../shared/interfaces/Place'
 import List from '../components/list'
 
-export default function Home({
-  places
-}: {
-  places: Place[]
-}) {
+export default function Home({errorCode, data}) {
   return (
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <List places={places}></List>
+      <List places={data}></List>
     </Layout>
   )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const places = getPlaces()
+  const data = await getPlaces()
   return {
     props: {
-      places
+      ...data
     }
   }
 }
