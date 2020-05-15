@@ -2,8 +2,6 @@ import superagent from 'superagent';
 
 const serverUrl = process.env.SERVER_URL;
 
-console.log(serverUrl)
-
 export async function getPlaces() {
   return await executeRequest(`${serverUrl}api/places`);
 }
