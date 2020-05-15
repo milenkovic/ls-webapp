@@ -1,0 +1,13 @@
+.openingHours__days {
+    border-left: 1px solid #666;
+    padding-left: 30px;
+    margin-left: 30px;
+    width: 300px;
+    justify-content: space-between;
+}
+
+.openingHours__day {
+    display: flex;
+    justify-content: space-between;
+    text-transform: capitalize;
+}
