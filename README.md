@@ -12,8 +12,10 @@ $ npm run build
 $ npm start
 ```
 
-- Tests?
-- Debounce search?
-- Docker?
-- Use Custom server?
-    https://nextjs.org/docs/advanced-features/custom-server
+Application is available on port 3000
+
+In case this port is busy app can be started on different port(e.g. 2222):
+
+```bash
+$ npm start -- -p 2222
+```

@@ -1,11 +1,15 @@
 import superagent from 'superagent';
 
+const serverUrl = process.env.SERVER_URL;
+
+console.log(serverUrl)
+
 export async function getPlaces() {
-  return await executeRequest(`http://localhost:3333/api/places`);
+  return await executeRequest(`${serverUrl}api/places`);
 }
 
 export async function getPlaceById(id: string) {
-  return await executeRequest(`http://localhost:3333/api/places/${id}`);
+  return await executeRequest(`${serverUrl}api/places/${id}`);
 }
 
 async function executeRequest(url, method = 'get') {

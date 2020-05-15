@@ -1,11 +1,10 @@
-import Head from 'next/head'
-import Layout, { siteTitle } from '../components/layout'
-import { getPlaces } from '../shared/dataService'
-import { GetStaticProps } from 'next'
-import { Place } from '../shared/interfaces/Place'
-import List from '../components/list'
+import Head from 'next/head';
+import Layout, { siteTitle } from '../components/layout';
+import { getPlaces } from '../shared/dataService';
+import { GetStaticProps } from 'next';
+import List from '../components/list';
 
-export default function Home({errorCode, data}) {
+export default function Home({errorCode, data = []}) {
   return (
     <Layout home>
       <Head>

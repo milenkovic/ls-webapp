@@ -9,20 +9,11 @@
     justify-content: space-between;
 }
 
-.place__days {
-    border-left: 1px solid #666;
-    padding-left: 30px;
-    margin-left: 30px;
-    width: 300px;
+.place__title {
+    display: flex;
     justify-content: space-between;
 }
 
-.place__day {
-    display: flex;
-    justify-content: space-between;
-    text-transform: capitalize;
-}
-
-.day {
-    display: flex;
+.place__back {
+    color: cornflowerblue;
 }
