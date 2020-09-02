@@ -1,0 +1,60 @@
+name: Rollback Deployment
+
+# Perform rollback when version is deleted
+on:
+  release:
+    types: [deleted]
+
+env:
+  REGISTRY_HOST: eu.gcr.io/local-ch-registry-8e1b161f/nodejs
+  GKE_REGION: europe-west6
+  APP_NAME: ${{secrets.APP_NAME}}
+
+jobs:
+  rollback:
+    runs-on: [self-hosted, linux]
+    steps:
+      # Set env variables
+      - name: Set staging env
+        if: github.ref == 'refs/heads/staging'
+        run: echo ::set-env name=STAGE::stg
+
+      - name: Set prod env
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: echo ::set-env name=STAGE::prd
+
+      - name: Set rest of the env variables
+        run: |
+          echo ::set-env name=GKE_CLUSTER::"local-ch-$STAGE"
+          echo ::set-env name=GKE_PROJECT::"local-ch-$STAGE-6f80bb1e"
+          echo ::set-env name=DOMAIN::"local-$STAGE.cloud"
+
+      # Setup gcloud CLI
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GKE_KEY }}
+          export_default_credentials: true
+
+      # Setup ytt command-line tool
+      - name: Setup ytt command-line tool
+        run: wget https://github.com/k14s/ytt/releases/download/v0.28.0/ytt-linux-amd64 && install ytt-linux-amd64 ~/ytt
+
+      # Install kubectl command line tool
+      - name: Install kubectl
+        run: gcloud components install kubectl
+
+      # Deploy
+      - name: Deploy
+        run: |
+          gcloud container clusters get-credentials $GKE_CLUSTER --region $GKE_REGION --project $GKE_PROJECT
+          ~/ytt -f deploy/ \
+          --data-value app_name=$APP_NAME \
+          --data-value stage=$STAGE \
+          --data-value tag=${GITHUB_REF##*/} \
+          --data-value domain=$DOMAIN \
+          --data-value registry_host=$REGISTRY_HOST \
+          | kubectl apply -f-
+
+      # Kubectl rollback deployment
+      - name: Rollback deployment
+        run: kubectl rollout undo deployment $STAGE-$APP_NAME -n nodejs
